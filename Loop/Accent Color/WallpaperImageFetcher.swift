@@ -26,7 +26,6 @@ final class WallpaperImageFetcher {
 
         // First try to get the wallpaper window from the Dock app that matches our screen dimensions
         if let wallpaperImage = try? await captureWallpaperFromDock(screenFrame: screenFrame, matchFrame: true) {
-            print("First")
             return wallpaperImage
         }
 
