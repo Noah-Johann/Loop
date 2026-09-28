@@ -26,6 +26,7 @@ final class WallpaperImageFetcher {
 
         // First try to get the wallpaper window from the Dock app that matches our screen dimensions
         if let wallpaperImage = try? await captureWallpaperFromDock(screenFrame: screenFrame, matchFrame: true) {
+            print("First")
             return wallpaperImage
         }
 
@@ -55,9 +56,9 @@ final class WallpaperImageFetcher {
         // Get all windows and filter for the Dock's wallpaper windows
         let windows = CGWindowListCopyWindowInfo(.optionAll, kCGNullWindowID) as! [[CFString: Any]]
         var wallpaperWindows = windows
-            .filter { $0[kCGWindowOwnerName] as? String == "Dock" }
             .filter { ($0[kCGWindowName] as? String ?? "").contains("Wallpaper") }
             .filter { $0[kCGWindowIsOnscreen] as? Int == 1 }
+            .filter { ($0[kCGWindowLayer] as? Int ?? 0) < 0 }
 
         // Apply additional frame filtering only if matchFrame is true
         if matchFrame {
