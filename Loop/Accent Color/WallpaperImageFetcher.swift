@@ -8,14 +8,13 @@
 import SwiftUI
 
 final class WallpaperImageFetcher {
-    
     /// Bundle identifier for the wallpaper window process
     /// On macOS 27 and later, the wallpaper window is not owned by the dock but rather the window manager.
     private static let wallpaperOwnerBundleIDs: Set<String> = [
         "com.apple.dock",
         "com.apple.WindowManager"
     ]
-        
+
     /// Takes a screenshot of the main display.
     /// - Returns: An NSImage of the screenshot or nil if the operation fails.
     ///
